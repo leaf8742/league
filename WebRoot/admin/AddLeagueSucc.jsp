@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-     <title>Duke足球联赛：添加新联赛 </title>
+     <title>Duke足球联赛：添加新联赛成功 </title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -27,22 +27,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body bgcolor='white'>
     <table border='1' cellpadding='5' cellspacing='0' width='400'>
       <tr bgcolor='#CCCCFF' align='center' valign='center' height='20'>
-        <td><h3>Duke足球联赛：添加新联赛</h3></td>
+        <td><h3>Duke足球联赛：添加新联赛成功</h3></td>
       </tr>
     </table>
-    <p>本页面用于创建新联赛 </p>
-    <form action = "admin/add_league.do" method="POST">
-      年份：<input type = "text" name = "year"/><br/><br/>
-      季节：<select name = "season">
-        <option value = "UNKNOWN">Select ...</option>
-        <option value = "Spring">Spring</option>
-        <option value = "Summer">Summer</option>
-        <option value = "Fall">Fall</option>
-        <option value = "Winter">Winter</option>
-      </select><br/><br/>
-      标题：<input type = "text" name = "title"/><br/><br/>
-      <input type = "submit" value = "添加新联赛"/><br/><br/>
-    </form>
+    <p>创新新联赛<i>Spring of 2016</i>请求成功!</p>
     <a href="index.html">回首页</a>
   </body>
 </html>
