@@ -1,3 +1,4 @@
+<%@page import="com.rainbow_weaver.league.service.LeagueService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.rainbow_weaver.league.domain.League"%>
 <%@ page import="java.util.LinkedList"%>
@@ -31,18 +32,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </tr>
     </table>
     <p>现有以下足球联赛</p>
-    <%
-     List<League> leagues = new LinkedList<League>();
-     leagues.add(new League(2008, "Spring", "Soccer League (Spring \"08)"));
-     leagues.add(new League(2008, "Summer", "Summer Soccer Fest 2008"));
-     leagues.add(new League(2008, "Fall", "Fall Soccer League  (2008)"));
-     leagues.add(new League(2009, "Spring", "Soccer League (Spring \"09)"));
-     leagues.add(new League(2009, "Summer", "The Summer of Soccer Love 2009"));
-     leagues.add(new League(2009, "Fall", "Fall Soccer League (2009)"));
-    %>
     <ul>
       <%
-        for (League league : leagues) {
+        for (League league : LeagueService.getLeagueSvc().getLeagues()) {
           out.println("<li>" + league.getTitle() + "</li>");
         }
       %>
