@@ -53,6 +53,7 @@ public class AddLeagueServlet extends HttpServlet {
 		}
 		
 		League league = new League(int_year, season, title);
+		req.setAttribute("new_league", league);
 		req.getRequestDispatcher("/admin/AddLeagueSucc.jsp").forward(req, resp);
 	}
 }

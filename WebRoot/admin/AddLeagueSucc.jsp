@@ -30,7 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td><h3>Duke足球联赛：添加新联赛成功</h3></td>
       </tr>
     </table>
-    <p>创新新联赛<i>Spring of 2016</i>请求成功!</p>
+    <%
+      League league = (League)request.getAttribute("new_league");
+     %>
+    <p>创新新联赛<i><%= league.getTitle() %></i>请求成功!</p>
     <a href="index.html">回首页</a>
   </body>
 </html>
