@@ -5,14 +5,17 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns="http://java.sun.com/xml/ns/javaee" 
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 <!-- Servlet定义 -->
+<!--
 <servlet>
 	<servlet-name>ListLeaguesServlet</servlet-name>
 	<servlet-class>com.rainbow_weaver.league.view.ListLeaguesServlet</servlet-class>
 </servlet>
-
+-->
 <!-- Servlet映射 -->
+<!--
 <servlet-mapping>
 	<servlet-name>ListLeaguesServlet</servlet-name>
 	<url-pattern>/ListLeagues.view</url-pattern>
 </servlet-mapping>
+-->
 </web-app>

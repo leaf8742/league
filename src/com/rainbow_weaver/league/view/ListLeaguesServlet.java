@@ -16,6 +16,7 @@ import com.rainbow_weaver.league.domain.League;
 /**
  * Servlet implementation class ListLeaguesServlet
  */
+@WebServlet(name = "ListLeagues", urlPatterns = "/ListLeagues.view")
 public class ListLeaguesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
