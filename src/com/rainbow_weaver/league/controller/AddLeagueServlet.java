@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.rainbow_weaver.league.domain.League;
+import com.rainbow_weaver.league.exception.LeagueException;
+import com.rainbow_weaver.league.service.LeagueService;
 
 /**
  * Servlet implementation class AddLeagueServlet
@@ -53,8 +55,15 @@ public class AddLeagueServlet extends HttpServlet {
 			return;
 		}
 		
-		League league = new League(int_year, season, title);
-		req.setAttribute("new_league", league);
-		req.getRequestDispatcher("/admin/AddLeagueSucc.jsp").forward(req, resp);
+		League league;
+		try {
+			league = LeagueService.getLeagueSvc().createLeague(int_year, season, title);
+			req.setAttribute("new_league", league);
+			req.getRequestDispatcher("/admin/AddLeagueSucc.jsp").forward(req, resp);
+		} catch (LeagueException e) {
+			errors.add(e.getMessage());
+			req.setAttribute("errors", errors);
+			req.getRequestDispatcher("/admin/AddLeague.jsp").forward(req, resp);
+		}
 	}
 }
