@@ -19,13 +19,16 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 </servlet-mapping>
 -->
 
+<!--
 <filter>
 	<filter-name>PerformenceFilter</filter-name>
 	<filter-class>com.rainbow_weaver.league.web.PerformenceFilter</filter-class>
 </filter>
-
+-->
+<!--
 <filter-mapping>
 	<filter-name>PerformenceFilter</filter-name>
 	<url-pattern>*.do</url-pattern>
 </filter-mapping>
+-->
 </web-app>

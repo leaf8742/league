@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class PerformenceFilter
  */
+@WebFilter(filterName="PerformenceFilter", urlPatterns={"*.do"})
 public class PerformenceFilter implements Filter {
     public PerformenceFilter() {
         // TODO Auto-generated constructor stub
