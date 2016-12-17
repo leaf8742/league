@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-     <title>Duke足球联赛：列出所有联赛</title>
+     <title>Duke足球联赛：添加新联赛 </title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -27,26 +27,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body bgcolor='white'>
     <table border='1' cellpadding='5' cellspacing='0' width='400'>
       <tr bgcolor='#CCCCFF' align='center' valign='center' height='20'>
-        <td><h3>Duke足球联赛：列出所有联赛</h3></td>
+        <td><h3>Duke足球联赛：添加新联赛</h3></td>
       </tr>
     </table>
-    <p>现有以下足球联赛</p>
-    <%
-     List<League> leagues = new LinkedList<League>();
-     leagues.add(new League(2008, "Spring", "Soccer League (Spring \"08)"));
-     leagues.add(new League(2008, "Summer", "Summer Soccer Fest 2008"));
-     leagues.add(new League(2008, "Fall", "Fall Soccer League  (2008)"));
-     leagues.add(new League(2009, "Spring", "Soccer League (Spring \"09)"));
-     leagues.add(new League(2009, "Summer", "The Summer of Soccer Love 2009"));
-     leagues.add(new League(2009, "Fall", "Fall Soccer League (2009)"));
-    %>
-    <ul>
-      <%
-        for (League league : leagues) {
-          out.println("<li>" + league.getTitle() + "</li>");
-        }
-      %>
-    </ul>
+    <p>本页面用于创建新联赛 </p>
+    <form action = "" method="POST">
+      年份：<input type = "text" name = "year"/><br/><br/>
+      季节：<select name = "season">
+        <option value = "UNKNOWN">Select ...</option>
+        <option value = "Spring">Spring</option>
+        <option value = "Summer">Summer</option>
+        <option value = "Fall">Fall</option>
+        <option value = "Winter">Winter</option>
+      </select><br/><br/>
+      标题：<input type = "text" name = "title"/><br/><br/>
+      <input type = "submit" value = "添加新联赛"/><br/><br/>
+    </form>
     <a href="index.html">回首页</a>
   </body>
 </html>
