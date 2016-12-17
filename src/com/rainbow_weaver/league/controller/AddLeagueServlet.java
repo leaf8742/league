@@ -25,7 +25,7 @@ public class AddLeagueServlet extends HttpServlet {
 		String year = req.getParameter("year").trim();
 		String season = req.getParameter("season").trim();
 		String title = req.getParameter("title").trim();
-		System.out.println(year + season + title);
+
 		int int_year = 0;
 		
 		List<String> errors = new LinkedList<String>();
@@ -48,6 +48,7 @@ public class AddLeagueServlet extends HttpServlet {
 		}
 		
 		if (!errors.isEmpty()) {
+			req.setAttribute("errors", errors);
 			req.getRequestDispatcher("/admin/AddLeague.jsp").forward(req, resp);
 			return;
 		}
