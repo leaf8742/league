@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class League implements Serializable {
 	private static final long serialVersionUID = -2272445153446075594L;
+	private int id;
 	private int year;
 	private String season;
 	private String title;
@@ -16,6 +17,19 @@ public class League implements Serializable {
 		this.year = year;
 		this.season = season;
 		this.title = title;
+	}
+	public League(int id, int year, String season, String title) {
+		super();
+		this.id = id;
+		this.year = year;
+		this.season = season;
+		this.title = title;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getYear() {
 		return year;

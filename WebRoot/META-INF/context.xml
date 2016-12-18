@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource
+	name="jdbc/SoccerLeagueDS"
+	type="javax.sql.DataSource"
+	driverClassName="com.mysql.jdbc.Driver"
+	maxIdle="2"
+	maxWait="5000"
+	username="root"
+	url="jdbc:mysql://localhost:3306/SoccerLeague"
+	maxActive="4"/>
+</Context>
