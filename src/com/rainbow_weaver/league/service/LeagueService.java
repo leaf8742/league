@@ -39,4 +39,8 @@ public class LeagueService {
 		leagueDAO.insertLeagues(result);
 		return result;
 	}
+	
+	public String[] getSeasons() {
+		return SEASONS;
+	}
 }

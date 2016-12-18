@@ -3,6 +3,7 @@
 <%@ page import="java.util.LinkedList"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -33,17 +34,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </tr>
     </table>
     <p>本页面用于创建新联赛 </p>
-    <c:if test="${not empty errors}">
-      <font color = "red">请更正以下错误信息:
-      <ul>
-        <c:forEach items="${errors}" var="error">
-          <li>${error}</li>
-        </c:forEach>
-      </ul>
-      </font>
-    </c:if>
+    <font color = "red"><s:actionerror/></font>
     <form action = "admin/AddLeague.action" method="POST">
-      年份：<input type = "text" name = "year" value = "${param.year}"/><br/><br/>
+    <table>
+    <tr>
+    <td>
+      年份：<input type = "text" name = "year" value = "${param.year}"/>
+    </td>
+    <td>
+      <font color="red">
+      <s:fielderror name="year">
+        <s:param>year</s:param>
+      </s:fielderror>
+      </font>
+    </td>
+    </tr>
+    <tr>
+    <td>
       季节：<select name = "season">
         <option value = "UNKNOWN">Select ...</option>
         <c:forEach items="Spring, Summer, Fall, Winter" var="season_item">
@@ -55,9 +62,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           ${season_item}
           </option>
         </c:forEach>
-      </select><br/><br/>
-      标题：<input type = "text" name = "title" value = "${param.title}"/><br/><br/>
-      <input type = "submit" value = "添加新联赛"/><br/><br/>
+      </select>
+    </td>
+    <td>
+      <font color="red">
+      <s:fielderror name="year">
+        <s:param>season</s:param>
+      </s:fielderror>
+      </font>
+    </td>
+    </tr>
+    <tr>
+    <td>
+      标题：<input type = "text" name = "title" value = "${param.title}"/>
+    </td>
+    <td>
+      <font color="red">
+      <s:fielderror name="year">
+        <s:param>title</s:param>
+      </s:fielderror>
+      </font>
+    </td>
+    </tr>
+    </table>
+      <input type = "submit" value = "添加新联赛"/>
     </form>
     <a href="index.html">回首页</a>
   </body>
