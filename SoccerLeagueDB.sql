@@ -7,7 +7,7 @@ create table League (
     season varchar(10) not null,
     title varchar(30) not null);
 
-alter table League modify lid int primary key auto_increment;
+alter table League modify lid int auto_increment;
 
 create table Player(
     pid integer primary key auto_increment,
