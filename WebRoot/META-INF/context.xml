@@ -7,6 +7,7 @@
 	maxIdle="2"
 	maxWait="5000"
 	username="root"
+	password="111111"
 	url="jdbc:mysql://localhost:3306/SoccerLeague"
 	maxActive="4"/>
 </Context>
