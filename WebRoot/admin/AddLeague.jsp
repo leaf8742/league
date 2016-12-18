@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </ul>
       </font>
     </c:if>
-    <form action = "admin/add_league.do" method="POST">
+    <form action = "admin/AddLeague.action" method="POST">
       年份：<input type = "text" name = "year" value = "${param.year}"/><br/><br/>
       季节：<select name = "season">
         <option value = "UNKNOWN">Select ...</option>

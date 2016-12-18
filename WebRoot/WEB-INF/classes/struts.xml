@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="admin" namespace="/admin" extends="struts-default">
+        <action name="AddLeague" 
+                class="com.rainbow_weaver.league.action.AddLeagueAction">
+            <result name="success">/admin/AddLeagueSucc.jsp</result>
+            <result name="input">/admin/AddLeague.jsp</result>
+        </action>
+    </package>
+</struts>
