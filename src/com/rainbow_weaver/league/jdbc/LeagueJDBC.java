@@ -10,7 +10,8 @@ import com.rainbow_weaver.league.domain.League;
 
 public class LeagueJDBC {
 	public static void main(String[] args) {
-		queryPrint();
+//		queryPrint();
+		insertLeague(2019, "Winter", "Winter of 2019");
 	}
 	
 	// 1. 查询数据表中的数据
@@ -68,7 +69,42 @@ public class LeagueJDBC {
 	}
 	
 	// 2. 插入数据至数据表
-
+	public static void insertLeague(int lyear, String season, String title) {
+		Connection con = null;
+		Statement stmt = null;
+		try {
+			String insert = "INSERT INTO League(lyear, season, title) values('" + lyear + "','" + season + "','" + title +"')";
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/SoccerLeague";
+			con = DriverManager.getConnection(url, "root", "111111");
+			stmt = con.createStatement();
+			stmt.executeUpdate(insert);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 	
 	// 3. 更新数据表中的数据
 	
