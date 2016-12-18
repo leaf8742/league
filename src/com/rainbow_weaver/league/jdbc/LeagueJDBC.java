@@ -2,11 +2,9 @@ package com.rainbow_weaver.league.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import com.rainbow_weaver.league.domain.League;
 
 public class LeagueJDBC {
 	public static void main(String[] args) {
@@ -17,15 +15,15 @@ public class LeagueJDBC {
 	// 1. 查询数据表中的数据
 	public static void queryPrint() {
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			String query = "SELECT * FROM League";
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/SoccerLeague";
 			con = DriverManager.getConnection(url, "root", "111111");
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(query);
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
 			while (rs.next()) {
 				int year = rs.getInt("lyear");
 				String season = rs.getString("season");
@@ -71,14 +69,17 @@ public class LeagueJDBC {
 	// 2. 插入数据至数据表
 	public static void insertLeague(int lyear, String season, String title) {
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		try {
-			String insert = "INSERT INTO League(lyear, season, title) values('" + lyear + "','" + season + "','" + title +"')";
+			String insert = "INSERT INTO League(lyear, season, title) values(?, ?, ?)";
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/SoccerLeague";
 			con = DriverManager.getConnection(url, "root", "111111");
-			stmt = con.createStatement();
-			stmt.executeUpdate(insert);
+			stmt = con.prepareStatement(insert);
+			stmt.setInt(1, lyear);
+			stmt.setString(2, season);
+			stmt.setString(3, title);
+			stmt.execute();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
