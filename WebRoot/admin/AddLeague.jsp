@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td><h3>${pageTitle}</h3></td>
       </tr>
     </table>
-    <p>本页面用于创建新联赛 </p>
+    <p><s:text name="message.league.addleague.header"/></p>
     <font color = "red"><s:actionerror/></font>
     <form action = "admin/AddLeague.action" method="POST">
     <table>

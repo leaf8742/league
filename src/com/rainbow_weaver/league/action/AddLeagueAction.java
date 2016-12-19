@@ -42,7 +42,7 @@ public class AddLeagueAction extends ActionSupport {
 			HttpServletRequest request = (HttpServletRequest)ctx.get(ServletActionContext.HTTP_REQUEST);
 			request.setAttribute("new_league", league);
 		} catch (LeagueException e) {
-			this.addActionError(e.getMessage());
+			this.addActionError(getText("error.league.created", new String[]{e.getMessage()}));
 			return INPUT;
 		}
 		return SUCCESS;
@@ -51,15 +51,15 @@ public class AddLeagueAction extends ActionSupport {
 	public void validate() {
 		if (year >= 2010 && year <= 2020) {
 		} else {
-			this.addFieldError("year", "年份必须在2010到2020之间");
+			this.addFieldError("year", getText("error.yearField.range", new String[]{"2010", "2020"}));
 		}
 		
 		if (season.equals("UNKNOWN")) {
-			this.addFieldError("season", "请选择季节");
+			this.addFieldError("season", getText("error.seasonField.required"));
 		}
 		
 		if (title == null || title.equals("")) {
-			this.addFieldError("title", "请输入标题");
+			this.addFieldError("title", getText("error.titleField.required"));
 		}
 	}
 }

@@ -4,6 +4,7 @@
 <%@ page import="java.util.LinkedList"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -33,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <td><h3>${pageTitle}</h3></td>
       </tr>
     </table>
-    <p>现有以下足球联赛</p>
+    <p><s:text name="message.league.listleagues.header"/></p>
     <ul>
       <%
         request.setAttribute("leagues", LeagueService.getLeagueSvc().getLeagues());
