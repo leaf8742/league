@@ -1,6 +1,7 @@
 package com.rainbow_weaver.league.action;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
@@ -13,24 +14,23 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.FieldExpressionValidator;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.rainbow_weaver.league.domain.League;
-import com.rainbow_weaver.league.exception.LeagueException;
-import com.rainbow_weaver.league.service.LeagueService;
+import com.rainbow_weaver.league.domain.Player;
+import com.rainbow_weaver.league.service.RegisterService;
 
-@Namespace(value="/admin")  
+@Namespace(value="/register")  
 @ParentPackage(value="struts-default")
-@Action(value="AddLeague")
+@Action(value="SelectDivision")
 @Results({  
-   @Result(name="success", location="/admin/AddLeagueSucc.jsp"), 
-   @Result(name="input", location="/admin/AddLeague.jsp") 
+   @Result(name="success", location="/register/RegisterSucc.jsp"), 
+   @Result(name="input", location="/register/SelectDivision.jsp"),
+   @Result(name="error", location="/register/EnterPlayer.jsp")
 })
-public class AddLeagueAction extends ActionSupport {
-	private static final long serialVersionUID = 7905788763617232687L;
+public class SelectDivisionAction extends ActionSupport {
+	private static final long serialVersionUID = -4914864814571850353L;
 	private int year;
 	private String season;
-	private String title;
+	private String division;
 	
     @IntRangeFieldValidator(
         key = "error.yearField.range",
@@ -54,34 +54,35 @@ public class AddLeagueAction extends ActionSupport {
 	public void setSeason(String season) {
 		this.season = season;
 	}
-	@RequiredStringValidator(
-        key = "error.titleField.required",
-        trim = true,
-        shortCircuit = true
+    @FieldExpressionValidator(
+        fieldName = "division",
+        key = "error.divisionField.required",
+        expression = "division != 'UNKNOWN'"
     )
-    @StringLengthFieldValidator(
-        key = "error.titleField.length",
-        minLength = "4",
-        maxLength = "30"
-    )
-	public String getTitle() {
-		return title;
+	public String getDivision() {
+		return division;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setDivision(String division) {
+		this.division = division;
 	}
 	@Override
 	public String execute() throws Exception {
-		League league;
-		try {
-			league = LeagueService.getLeagueSvc().createLeague(year, season, title);
-			ActionContext ctx = ActionContext.getContext();
-			HttpServletRequest request = (HttpServletRequest)ctx.get(ServletActionContext.HTTP_REQUEST);
-			request.setAttribute("new_league", league);
-		} catch (LeagueException e) {
-			this.addActionError(getText("error.league.created", new String[]{e.getMessage()}));
-			return INPUT;
+		ActionContext ctx = ActionContext.getContext();
+		HttpServletRequest request = (HttpServletRequest)ctx.get(ServletActionContext.HTTP_REQUEST);
+		HttpSession session = request.getSession();
+		Player player = (Player)session.getAttribute("player");
+		
+		if (player == null) {
+			return ERROR;
 		}
+		
+		RegisterService service = RegisterService.getInstance();
+		League league = service.getLeague(year, season);
+		service.register(league, player, division);
+		
+		request.setAttribute("player", player);
+		request.setAttribute("league", league);
+		
 		return SUCCESS;
 	}
 }
