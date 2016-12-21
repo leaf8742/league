@@ -1,63 +1,10 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" session="false" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<c:set var="pageTitle" scope="request">Duke足球联赛</c:set>
+<c:set var="mainBody" scope="request">LoginBody.jsp</c:set>
 
-<c:set var="pageTitle">Duke足球联赛: 管理员登录</c:set>
-
-<html>
-    <head>
-        <base href="<%=basePath%>">
-        <title>${pageTitle}</title>
-    </head>
-    <body>
-        <!-- Page Heading -->
-        <table border='1' cellpadding='5' cellspacing='0' width='400'>
-            <tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-                <td><h3>${pageTitle}</h3></td>
-            </tr>
-        </table>
-        
-        <p><s:text name="message.league.login.header" /></p>
-        <font color='red'><s:actionerror /></font>
-        
-        <form action='<c:url value="admin/Login" />' method='POST'>
-            <table>
-                <tr>
-                    <td>用户名：
-                        <input type='text' name='username' value='${param.username}' />
-                        <br/><br/>
-                    </td>
-                    <td>
-                        <font color='red' size="-1"><i>
-                            <s:fielderror>
-                                <s:param>username</s:param>
-                            </s:fielderror>
-                        </i></font>
-                    </td>
-                </tr>
-                <tr>
-                    <td>密&nbsp;&nbsp;&nbsp;&nbsp;码：
-                        <input type='password' name='password' value='${param.password}' />
-                        <br/><br/>
-                    </td>
-                    <td>
-                        <font color='red' size="-1"><i>
-                            <s:fielderror>
-                                <s:param>password</s:param>
-                            </s:fielderror>
-                        </i></font>
-                    </td>
-                </tr>
-            </table>                                                
-            <input type='submit' value='登 录' />
-        </form>
-    </body>
-</html>
-
+<jsp:include page="/WEB-INF/jspf/common/layout.jsp">
+    <jsp:param name="subTitle" value="管理员登录" />
+</jsp:include>
