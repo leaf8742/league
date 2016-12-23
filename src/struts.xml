@@ -11,4 +11,5 @@
       <result name="input">/admin/AddLeague.jsp</result>
     </action>
   </package>
+  <constant name="struts.objectFactory" value="spring"/>
 </struts>

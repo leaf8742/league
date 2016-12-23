@@ -9,6 +9,8 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -23,6 +25,8 @@ import com.rainbow_weaver.league.domain.Player;
    @Result(name="success", location="/register/SelectDivision.jsp"), 
    @Result(name="input", location="/register/EnterPlayer.jsp") 
 })
+@Controller
+@Scope("prototype")
 public class EnterPlayerAction extends ActionSupport {
 	private static final long serialVersionUID = -3662714052655887111L;
 	private String name;

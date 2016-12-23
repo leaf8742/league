@@ -1,5 +1,6 @@
 package com.rainbow_weaver.league.action;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,8 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,11 +29,17 @@ import com.rainbow_weaver.league.web.LoginFilter;
    @Result(name="success", type="redirect", location="${forwardUrl}"), 
    @Result(name="input", location="/admin/Login.jsp") 
 })
+@Controller
+@Scope("prototype")
 public class AdminLoginAction extends ActionSupport {
-    private String forwardUrl;
+	private static final long serialVersionUID = -4789973751801066933L;
+	private String forwardUrl;
     private String username;
     private String password;
 
+    @Resource
+    private LoginService loginService;
+    
     public String getForwardUrl() {
         return forwardUrl;
     }
@@ -63,11 +72,9 @@ public class AdminLoginAction extends ActionSupport {
 
     @Override
     public String execute() {
-        LoginService loginSvc = LoginService.getInstance();
-        
         Admin admin = null;
         try {
-            admin = loginSvc.adminLogin(username, password);
+            admin = loginService.adminLogin(username, password);
         } catch (LoginException e) {
             this.addActionError(
                     getText("error.login.failure", new String[]{e.getMessage()}));

@@ -1,3 +1,5 @@
+<%@page import="org.springframework.web.context.WebApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.rainbow_weaver.league.service.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,8 +13,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 "http://www.w3.org/TR/html4/loose.dtd">
 
 <%  
-    pageContext.setAttribute("leagueSvc", LeagueService.getLeagueSvc());
-    pageContext.setAttribute("regSvc", RegisterService.getInstance());
+    ApplicationContext context = (ApplicationContext)application.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+    LeagueService leagueService = (LeagueService)context.getBean("leagueService");
+	RegisterService registerService = (RegisterService)context.getBean("registerService");
+    pageContext.setAttribute("leagueSvc", leagueService);
+    pageContext.setAttribute("regSvc", registerService);
 %>
 
 <table border='1' cellspacing='0' cellpadding='0' width='400'>

@@ -10,27 +10,31 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
 import com.rainbow_weaver.league.domain.Admin;
 import com.rainbow_weaver.league.exception.LoginException;
 
+@Controller
+@Scope("singleton")
 public class AdminDAO {
     private static final String ERROR = "Êý¾Ý¿â´íÎó£º";
     private static final String RETRIEVE_STMT = 
             "SELECT * FROM Adminuser WHERE username=? AND password=?";
-    private static AdminDAO adminDAO = new AdminDAO();
-    private DataSource ds;
+    private static DataSource datasource;
 
-    private AdminDAO() {
-        try {
-            Context ctx = new InitialContext();
-            ds = (DataSource)ctx.lookup("java:comp/env/jdbc/SoccerLeagueDS");
-        } catch (NamingException e) {}
-    }
-    
-    public static AdminDAO getInstance() {
-        return adminDAO; 
-    }
-    
+	static {
+		try {
+			Context ctx;
+			ctx = new InitialContext();
+			datasource = (DataSource)ctx.lookup("java:comp/env/jdbc/SoccerLeagueDS");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
     public Admin retrieve(String name, String password) 
             throws LoginException {
         Connection connection = null;
@@ -39,7 +43,7 @@ public class AdminDAO {
 
         Admin admin = null;
         try {
-            connection = ds.getConnection();
+            connection = datasource.getConnection();
             stmt = connection.prepareStatement(RETRIEVE_STMT);
 
             stmt.setString(1, name);

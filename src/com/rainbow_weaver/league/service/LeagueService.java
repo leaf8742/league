@@ -2,28 +2,24 @@ package com.rainbow_weaver.league.service;
 
 import java.util.List;
 
-import javax.naming.NamingException;
+import javax.annotation.Resource;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import com.rainbow_weaver.league.dao.LeagueDAO;
 import com.rainbow_weaver.league.domain.League;
 import com.rainbow_weaver.league.exception.LeagueException;
 
+@Service
+@Scope("singleton")
 public class LeagueService {
-	private static LeagueService sharedClient = new LeagueService();
 	public static final String[] SEASONS = {"Spring", "Summer", "Fall", "Winter"};
+	
+	@Resource
 	private LeagueDAO leagueDAO;
 	
-	private LeagueService() {
-		try {
-			this.leagueDAO = LeagueDAO.getLeagueDAO();
-		} catch (NamingException e) {
-			e.printStackTrace();
-//			throw new LeagueException(e);
-		}
-	}
-	
-	public static LeagueService getLeagueSvc() {
-		return sharedClient;
+	public LeagueService() {
 	}
 	
 	public List<League> getLeagues() throws Exception {

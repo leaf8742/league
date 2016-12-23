@@ -20,18 +20,36 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 -->
 
 <!--
-<filter>
-	<filter-name>PerformenceFilter</filter-name>
-	<filter-class>com.rainbow_weaver.league.web.PerformenceFilter</filter-class>
-</filter>
--->
-<!--
-<filter-mapping>
-	<filter-name>PerformenceFilter</filter-name>
-	<url-pattern>*.do</url-pattern>
-</filter-mapping>
--->
+	<filter>
+		<filter-name>PerformenceFilter</filter-name>
+		<filter-class>com.rainbow_weaver.league.web.PerformenceFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>PerformenceFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+ -->
+ 
+     <context-param>
+        <description>added for SSH integration</description>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/ApplicationContext.xml</param-value>
+    </context-param>
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+ 
+ 	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>com.rainbow_weaver.league.web.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+ 
     <filter>
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>

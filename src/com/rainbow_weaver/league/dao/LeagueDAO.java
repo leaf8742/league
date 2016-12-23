@@ -12,23 +12,30 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
+
 import com.rainbow_weaver.league.domain.League;
 import com.rainbow_weaver.league.exception.LeagueException;
 import com.rainbow_weaver.league.jdbc.JDBCUtil;
 
+@Repository
+@Scope("singleton")
 public class LeagueDAO {
-	private static LeagueDAO sharedClient = new LeagueDAO();
 	private static DataSource datasource;
 	
-	private LeagueDAO() {
+	static {
+		try {
+			Context ctx;
+			ctx = new InitialContext();
+			datasource = (DataSource)ctx.lookup("java:comp/env/jdbc/SoccerLeagueDS");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public static LeagueDAO getLeagueDAO() throws NamingException {
-		Context ctx;
-		ctx = new InitialContext();
-		datasource = (DataSource)ctx.lookup("java:comp/env/jdbc/SoccerLeagueDS");
-
-		return sharedClient;
+	public LeagueDAO() {
 	}
 	
 	// 1. ²éÑ¯ËùÓÐLeague

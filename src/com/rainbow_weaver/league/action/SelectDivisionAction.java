@@ -1,5 +1,6 @@
 package com.rainbow_weaver.league.action;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,8 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,11 +29,16 @@ import com.rainbow_weaver.league.service.RegisterService;
    @Result(name="input", location="/register/SelectDivision.jsp"),
    @Result(name="error", location="/register/EnterPlayer.jsp")
 })
+@Controller
+@Scope("prototype")
 public class SelectDivisionAction extends ActionSupport {
 	private static final long serialVersionUID = -4914864814571850353L;
 	private int year;
 	private String season;
 	private String division;
+	
+	@Resource
+	private RegisterService registerService;
 	
     @IntRangeFieldValidator(
         key = "error.yearField.range",
@@ -76,9 +84,8 @@ public class SelectDivisionAction extends ActionSupport {
 			return ERROR;
 		}
 		
-		RegisterService service = RegisterService.getInstance();
-		League league = service.getLeague(year, season);
-		service.register(league, player, division);
+		League league = registerService.getLeague(year, season);
+		registerService.register(league, player, division);
 		
 		request.setAttribute("player", player);
 		request.setAttribute("league", league);

@@ -1,19 +1,20 @@
 package com.rainbow_weaver.league.service;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import com.rainbow_weaver.league.domain.League;
 import com.rainbow_weaver.league.domain.Player;
 import com.rainbow_weaver.league.exception.LeagueException;
 import com.rainbow_weaver.league.exception.RegisterException;
 
+@Service
+@Scope("singleton")
 public class RegisterService {
     private static final String[] DIVISIONS =  
         {"Amateur", "Semi-Pro", "Professional"};
-    private static RegisterService regService = new RegisterService();
     
-    private RegisterService() {}
-    
-    public static RegisterService getInstance() {
-        return regService;
+    public RegisterService() {
     }
     
     public League getLeague(int year, String season) throws LeagueException {

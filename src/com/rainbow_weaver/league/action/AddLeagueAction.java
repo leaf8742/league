@@ -1,5 +1,6 @@
 package com.rainbow_weaver.league.action;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -8,6 +9,8 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,11 +29,17 @@ import com.rainbow_weaver.league.service.LeagueService;
    @Result(name="success", location="/admin/AddLeagueSucc.jsp"), 
    @Result(name="input", location="/admin/AddLeague.jsp") 
 })
+
+@Controller
+@Scope(value="prototype")
 public class AddLeagueAction extends ActionSupport {
 	private static final long serialVersionUID = 7905788763617232687L;
 	private int year;
 	private String season;
 	private String title;
+	
+	@Resource
+	private LeagueService leagueService;
 	
     @IntRangeFieldValidator(
         key = "error.yearField.range",
@@ -74,7 +83,7 @@ public class AddLeagueAction extends ActionSupport {
 	public String execute() throws Exception {
 		League league;
 		try {
-			league = LeagueService.getLeagueSvc().createLeague(year, season, title);
+			league = leagueService.createLeague(year, season, title);
 			ActionContext ctx = ActionContext.getContext();
 			HttpServletRequest request = (HttpServletRequest)ctx.get(ServletActionContext.HTTP_REQUEST);
 			request.setAttribute("new_league", league);
